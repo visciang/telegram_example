@@ -4,7 +4,7 @@ defmodule TelegramExample.Application do
   @impl Application
   def start(_type, _args) do
     token = Application.fetch_env!(:telegram_example, :token_counter_bot)
-    options = [purge: true, max_bot_concurrency: 1_000]
+    options = [max_bot_concurrency: 1_000]
 
     children = [
       {Telegram.Bot.ChatBot.Supervisor, {TelegramExample.Bot.Counter, token, options}}
