@@ -1,5 +1,5 @@
 defmodule TelegramExample.Bot.Counter do
-  @behaviour Telegram.ChatBot
+  use Telegram.ChatBot
 
   @impl Telegram.ChatBot
   def init(_chat) do
