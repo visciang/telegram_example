@@ -1,5 +1,7 @@
 import Config
 
 config :telegram_example,
-  token_counter_bot: System.fetch_env!("TOKEN_COUNTER_BOT"),
-  max_bot_concurrency: 1_000
+  host: "#{System.fetch_env!("APP_NAME")}.gigalixirapp.com",
+  token_counter_bot: System.fetch_env!("BOT_TOKEN"),
+  max_bot_concurrency: System.get_env("BOT_MAX_CONCURRENTCY", "1000") |> String.to_integer(),
+  local_port: System.get_env("PORT", "4000") |> String.to_integer()
