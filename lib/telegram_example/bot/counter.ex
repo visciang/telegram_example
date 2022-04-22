@@ -1,10 +1,12 @@
 defmodule TelegramExample.Bot.Counter do
   use Telegram.ChatBot
 
+  @session_ttl 60 * 1_000
+
   @impl Telegram.ChatBot
   def init(_chat) do
     count_state = 0
-    {:ok, count_state}
+    {:ok, count_state, @session_ttl}
   end
 
   @impl Telegram.ChatBot
@@ -14,7 +16,7 @@ defmodule TelegramExample.Bot.Counter do
       text: "Reset message counter (it was #{count_state})"
     )
 
-    {:ok, 0}
+    {:ok, 0, @session_ttl}
   end
 
   def handle_update(%{"message" => %{"text" => "/stop", "chat" => %{"id" => chat_id}}}, token, count_state) do
@@ -34,11 +36,11 @@ defmodule TelegramExample.Bot.Counter do
       text: "Hey! You sent me #{count_state} messages"
     )
 
-    {:ok, count_state}
+    {:ok, count_state, @session_ttl}
   end
 
   def handle_update(_update, _token, count_state) do
     # Unknown update
-    {:ok, count_state}
+    {:ok, count_state, @session_ttl}
   end
 end
