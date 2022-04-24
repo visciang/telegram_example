@@ -1,8 +1,9 @@
 name: deploy
 
-workflow_run:
-  workflows: [build]
-  types: [completed]
+on:
+  workflow_run:
+    workflows: [build]
+    types: [completed]
 
 jobs:
   deploy:
