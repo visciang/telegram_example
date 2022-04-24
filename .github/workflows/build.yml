@@ -8,24 +8,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     container:
       image: elixir:1.13.4
-
     steps:
       - uses: actions/checkout@v2
-
       - name: install deps 
         run: |
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
           mix deps.unlock --check-unused
-
       - name: compile
         run: |
           mix compile --warnings-as-errors
-
       - name: lint
         run: |
           mix format --check-formatted
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: gigalixir deploy
+        run: |
+          git remote add gigalixir https://${{ secrets.GIGALIXIR_EMAIL }}:${{ secrets.GIGALIXIR_API_KEY }}@git.gigalixir.com/${{ secrets.GIGALIXIR_APP_NAME }}.git
+          git push -f gigalixir HEAD:refs/heads/master
