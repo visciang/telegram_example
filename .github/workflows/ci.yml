@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    container:
+      image: elixir:1.13.4
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.unlock --check-unused
+          mix compile --warnings-as-errors
+          mix format --check-formatted
+
