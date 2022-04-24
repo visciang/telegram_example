@@ -19,3 +19,4 @@ jobs:
         run: |
           git remote add gigalixir https://${{ secrets.GIGALIXIR_EMAIL }}:${{ secrets.GIGALIXIR_API_KEY }}@git.gigalixir.com/${{ secrets.GIGALIXIR_APP_NAME }}.git
           git push -f gigalixir HEAD:refs/heads/master
+
