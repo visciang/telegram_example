@@ -1,15 +1,12 @@
-name: CI
+name: build
 
 on:
   push:
-    tags:
-      - '*'
     branches:
       - master
-  pull_request:
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
 
     container:
@@ -18,12 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
+      - name: install deps 
         run: |
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
           mix deps.unlock --check-unused
-          mix compile --warnings-as-errors
-          mix format --check-formatted
 
+      - name: compile
+        run: |
+          mix compile --warnings-as-errors
+
+      - name: lint
+        run: |
+          mix format --check-formatted

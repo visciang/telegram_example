@@ -1,0 +1,21 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    container:
+      image: elixir:1.13.4
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: deploy on gigalixir
+        run: |
+          git remote add gigalixir https://$GIGALIXIR_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
+          git push -f gigalixir HEAD:refs/heads/master
