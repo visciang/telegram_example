@@ -1,9 +1,8 @@
 name: deploy
 
-on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: [build]
+    types: [completed]
 
 jobs:
   deploy:
@@ -17,5 +16,5 @@ jobs:
 
       - name: deploy on gigalixir
         run: |
-          git remote add gigalixir https://$GIGALIXIR_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
+          git remote add gigalixir https://${{ secrets.GIGALIXIR_EMAIL }}:${{ secrets.GIGALIXIR_API_KEY }}@git.gigalixir.com/${{ secrets.GIGALIXIR_APP_NAME }}.git
           git push -f gigalixir HEAD:refs/heads/master
