@@ -43,4 +43,14 @@ defmodule TelegramExample.Bot.Counter do
     # Unknown update
     {:ok, count_state, @session_ttl}
   end
+
+  @impl Telegram.ChatBot
+  def handle_timeout(token, chat_id, count_state) do
+    Telegram.Api.request(token, "sendMessage",
+      chat_id: chat_id,
+      text: "See you!"
+    )
+
+    super(token, chat_id, count_state)
+  end
 end
