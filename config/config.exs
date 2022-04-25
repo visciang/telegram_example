@@ -1,3 +1,3 @@
 import Config
 
-config :logger, :console, metadata: [:bot, :token]
+config :logger, :console, metadata: [:bot, :token, :chat_id]
