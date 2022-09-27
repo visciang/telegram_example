@@ -21,7 +21,7 @@ defmodule TelegramExample.MixProject do
   defp deps do
     [
       {:telegram, git: "https://github.com/visciang/telegram.git", tag: "0.21.0"},
-      {:hackney, "~> 1.18", only: :test}
+      {:hackney, "~> 1.18"}
     ]
   end
 end
