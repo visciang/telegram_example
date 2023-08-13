@@ -7,7 +7,10 @@ defmodule TelegramExample.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_local_path: "_build/plts"
+      ]
     ]
   end
 
@@ -20,8 +23,10 @@ defmodule TelegramExample.MixProject do
 
   defp deps do
     [
-      {:telegram, github: "visciang/telegram", tag: "0.22.3"},
-      {:hackney, "~> 1.18"}
+      {:telegram, github: "visciang/telegram", tag: "1.0.0"},
+      {:finch, "~> 0.16.0"},
+      {:credo, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 end

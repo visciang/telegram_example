@@ -1,29 +1,19 @@
 name: ci-cd
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: elixir:1.14.1
-    steps:
-      - uses: actions/checkout@v3
-      - name: install deps 
-        run: |
-          mix local.rebar --force
-          mix local.hex --force
-          mix deps.get
-          mix deps.unlock --check-unused
-      - name: compile
-        run: |
-          mix compile --warnings-as-errors
-      - name: lint
-        run: |
-          mix format --check-formatted
+    uses: visciang/gha-elixir-workflow/.github/workflows/elixir.yml@v1
+    with:
+      image: hexpm/elixir:1.15.4-erlang-26.0.2-debian-bookworm-20230612
+      tests: false
+      build-docs: false
+    secrets: inherit
 
   deploy:
     needs: build

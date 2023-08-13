@@ -1,4 +1,6 @@
 defmodule TelegramExample.Bot.Counter do
+  @moduledoc false
+
   use Telegram.ChatBot
 
   @session_ttl 60 * 1_000

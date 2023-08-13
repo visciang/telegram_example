@@ -1,4 +1,6 @@
 defmodule TelegramExample.Application do
+  @moduledoc false
+
   use Application
 
   @impl Application
@@ -14,6 +16,7 @@ defmodule TelegramExample.Application do
     ]
 
     children = [
+      {Finch, name: TelegramExample.Finch},
       {Telegram.Webhook, config: webhook_config, bots: [{TelegramExample.Bot.Counter, bot_config}]}
     ]
 
