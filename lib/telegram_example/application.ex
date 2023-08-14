@@ -11,7 +11,7 @@ defmodule TelegramExample.Application do
     ]
 
     bot_config = [
-      token: Application.fetch_env!(:telegram_example, :token_counter_bot),
+      token: Application.fetch_env!(:telegram_example, :token),
       max_bot_concurrency: Application.fetch_env!(:telegram_example, :max_bot_concurrency)
     ]
 
