@@ -23,9 +23,9 @@ defmodule TelegramExample.MixProject do
 
   defp deps do
     [
-      {:telegram, github: "visciang/telegram", tag: "1.1.0"},
-      {:bandit, "~> 1.0-pre"},
-      {:finch, "~> 0.16.0"},
+      {:telegram, github: "visciang/telegram", tag: "1.2.2"},
+      {:bandit, "~> 1.0"},
+      {:finch, "~> 0.16"},
       {:credo, "~> 1.0", only: [:dev], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
